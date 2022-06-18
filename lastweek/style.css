@@ -1,0 +1,16 @@
+.box{
+    position: relative;
+   
+}
+.overlay{
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 30px;
+    inset: 0;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

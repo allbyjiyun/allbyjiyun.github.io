@@ -1,34 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <title>components</title>
-  <link rel="stylesheet" href="ss.css">
-  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
 </head>
+
 <body>
- <div class="container">
-  <div class="row">
-    <div class="col-4">
-      <div class="box">
-        <!-- 關住overlay -->
-        <div class="overlay">
-          <h4>
-            title MAO!!!!!!!!!!!!</h4>
-            <img src="IMG/IMG_2168.JPG" alt="">
-        </div>
-        
-      </div>
 
-  </div>
-  </div>
+  <div id="map"></div>
+  <div id="map2"></div>
+
+
+
+
+
+  <!-- script要在最後面 -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDccLmU4ehZgrEXd3eLUww93kWYUcjEnzQ&callback=initMap&libraries=&v=weekly" defer></script>
   
- </div>
+  <script>
+    // function initMap() {
+    //   map = new google.maps.Map(document.getElementById("map"), {
+    //     // 上方的map要跟上面的id相同，如果有兩個id要不一樣""同理"
+    //     center: {
+    //       lat: 24.9456213,
+    //       lng: 121.2282846
+    //     },
+    //     // lat是緯度，lng是經度
+    //     zoom: 15
+    //     // 縮放比例
+    //   });
+    // }
+    function initMap() {
+      var rangecenter = {
+        // 原變數uluru(一個地名)
+        lat: 24.954914667361123,
+        lng: 121.2246302028086
+      };
+      var pin = {
+
+        lat: 24.954830845512667,
+        lng: 121.22348173652037
+      };
+      var pin2 = {
+        //   定義變數的名稱pin2
+        lat: 24.954232621321147,
+        lng: 121.22388406784988
+      };
+
+      
+      
+
+      var map = new google.maps.Map(
+        document.getElementById('map'), {
+          //  取得一個element從id'map'
+          zoom: 19,
+          center: rangecenter,
+          mapId: "90562d8d5ff9aba7"
+        });
+      var marker = new google.maps.Marker({
+        // 釘選=maker
+        position: pin,
+        map: map,
+        icon: "img/home.png"
+        // icon路徑要正確
+      });
+
+      var marker = new google.maps.Marker({
+        // 釘選=maker
+        position: pin2,
+        map: map,
+        icon: "img/marker.png"
+      });
 
 
+      map = new google.maps.Map(document.getElementById('map2'), {
+        center: {
+          lat: -34.397,
+          lng: 150.644
+        },
+        zoom: 6
+      });
+      infoWindow = new google.maps.InfoWindow;
+      // Try HTML5 geolocation.
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          infoWindow.setPosition(pos);
+          infoWindow.setContent('Location found.');
+          infoWindow.open(map);
+          map.setCenter(pos);
+        }, function() {
+          handleLocationError(true, infoWindow, map.getCenter());
+        });
+      } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+      }
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+      infoWindow.setPosition(pos);
+      infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+      infoWindow.open(map);
+
+    }
+  </script>
 </body>
+
 </html>
